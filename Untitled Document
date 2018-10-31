@@ -1,0 +1,112 @@
+var mid_numwords=["thousand","hundred","ninety","eighty","seventy","sixty","fifty","forty",
+				  "thirty"];
+var digitstens1 = ["ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+var digitstens2 = ["","ten","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+var digits = ["zero","one","two","three","four","five","six","seven","eight","nine"];
+
+var myVar = 19900;
+var numlength = myVar.toString().length;
+var digit = myVar.toString()[1];
+var i = 0;
+var j = 0;
+var k = 0;
+var numword = "";
+
+convertword(numlength,j,k,numword,mid_numwords,digitstens1,digitstens2,digits,myVar,digit);
+
+function convertword(i,j,k,numword,mid_numwords,digitstens1,digitstens2,digits,myVar,digit){
+	
+    j = j+1;
+    k = i-j;
+	digit = myVar.toString()[k];
+    numword1 = digits[parseInt(digit)];
+    if(numword != "zero"){
+    	numword = numword1;
+    }
+  
+
+    j = j+1;
+    k=i-j;
+    if(k >= 0){
+      digit = parseInt(myVar.toString()[k]);
+      if(digit == 1){
+          digit = myVar.toString()[k+1];
+          numword2 = digitstens1[parseInt(digit)];
+          numword = numword2;
+          
+      }else{
+          digit = myVar.toString()[k];
+          numword2 = digitstens2[parseInt(digit)];
+          if(numword2!=""){
+            numword = numword2+" "+numword1;
+          }
+          
+      }
+      j = j+1;
+      k = i-j;
+      if(k >= 0){
+      	
+        digit = myVar.toString()[k];
+    	numword3 = digits[parseInt(digit)];
+        numword = numword3+" hundred "+ numword;
+      
+      }
+      
+      convertwordthousand(i,j,k,numword,mid_numwords,digitstens1,digitstens2,digits,myVar,digit);
+    }
+    
+    if(numword != ""){
+    	console.log(numword)
+        numword = "";
+    }
+    
+}
+
+
+function convertwordthousand(i,j,k,numword,mid_numwords,digitstens1,digitstens2,digits,myVar,digit){
+	
+    j = j+1;
+    k = i-j;
+	digit = myVar.toString()[k];
+    numword1 = digits[parseInt(digit)];  
+  	var numwordth = numword1 + " thousand " + numword;
+       
+    j = j+1;
+    k=i-j;
+    if(k >= 0){
+      digit = parseInt(myVar.toString()[k]);
+      if(digit == 1){
+          digit = myVar.toString()[k+1];
+          numword2 = digitstens1[parseInt(digit)];
+          numwordth = numword2+" thousand " + numword;
+          
+      }else{
+          digit = myVar.toString()[k];
+          numword2 = digitstens2[parseInt(digit)];
+          if(numword2!=""){
+          	if(numword1 == "zero"){
+            	numwordth = numword2+" thousand " + numword;
+            }else{
+            	numwordth = numword2+" "+numword1+" thousand " + numword;
+            }
+          }
+          
+      }
+      j = j+1;
+      k = i-j;
+      if(k >= 0){
+      	
+        digit = myVar.toString()[k];
+    	numword3 = digits[parseInt(digit)];
+        numwordth = numword3+" hundred "+ numword;
+      
+      }
+      
+    }
+    
+    if(numwordth != ""){
+    	console.log(numwordth)
+        numword = "";
+    }
+    
+}
