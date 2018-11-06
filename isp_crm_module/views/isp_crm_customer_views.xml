@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--showing total installation charge in customer-->
+    <record model="ir.ui.view" id="customer_view_buttons">
+        <field name="name">partner.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button type="object" class="oe_stat_button" icon="fa-pencil-square-o" name="action_view_customer_service_request"
+                    attrs="{'invisible': [('customer', '=', False)]}" context="{'default_partner_id': active_id}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="total_installation_charge" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </span>
+                        <span class="o_stat_text">Total Charge</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!--  Partners inherited form -->
+    <record id="isp_crm_module.view_subscriber_info_in_partner_info_form" model="ir.ui.view">
+        <field name="name">subscriber.info.partner.info.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <h3>
+                    <field name="subscriber_id" />
+                </h3>
+            </field>
+            <field name="name" position="replace">
+                <h1>
+                    <field name="name" string="Subscriber Name (Individual / Organization)" placeholder="Name"/>
+                </h1>
+            </field>
+            <field name="type" position="after">
+                <field name="gender" string="Gender" />
+                <field name="birthday" string="Date Of Birth" />
+            </field>
+            <field name="vat" position="before">
+                <field name="father" />
+                <field name="mother" />
+            </field>
+            <field name="email" position="after">
+                <field name="identifier_name" />
+                <field name="identifier_mobile" widget="phone"/>
+                <field name="identifier_phone" widget="phone"/>
+                <field name="identifier_nid" />
+            </field>
+            <xpath expr="//group/label" position="replace">
+                <label for="street" string="Connection Address"/>
+            </xpath>
+            <field name="function" position="replace">
+                <field name="function" string="Designation" />
+            </field>
+            <field name="website" position="replace">
+                <field name="website" invisible="1" />
+            </field>
+            <field name="category_id" position="replace">
+                <field name="category_id" invisible="1" />
+            </field>
+            <field name="vat" position="replace">
+                <field name="vat" invisible="1" />
+            </field>
+            <field name="lang" position="replace">
+                <field name="lang" invisible="1" />
+            </field>
+
+
+            <!--Technical Information-->
+            <xpath expr="//notebook/page[@name='sales_purchases']" position="after" >
+                <page string="Technical Information">
+                    <group>
+                        <group>
+                            <field name="current_package_id" string="Package ID" readonly="1"/>
+                            <field name="current_package_end_date" string="Valid Till" readonly="1"/>
+                            <field name="service_type" string="Service Type"/>
+                            <field name="connection_type" string="Connection Type"/>
+                            <field name="connection_media" string="Connection Media"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Potential Customer List-->
+    <record id="isp_crm_potential_customer_act_window" model="ir.actions.act_window">
+        <field name="name">Potential Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_potential_customer', '=', True), ('customer', '=', True)]</field>
+    </record>
+
+    <!--Only Customer List-->
+    <record id="isp_crm_customer_act_window" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_potential_customer', '=', False), ('customer', '=', True)]</field>
+    </record>
+
+    <!--adding fields in customer filter-->
+    <record id="isp_crm_module.view_inherit_pres_partner_search" model="ir.ui.view">
+        <field name="name">view.inherit.pres.partner.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="subscriber_id"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for service request -->
+        <record id="seq_service_request" model="ir.sequence">
+            <field name="name">Service Request</field>
+            <field name="code">isp_crm_module.service_request</field>
+            <field name="prefix">REQ%(y)s%(month)s</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Sequences for helpdesk -->
+        <record id="seq_helpdesk" model="ir.sequence">
+            <field name="name">Helpdesk</field>
+            <field name="code">isp_crm_module.helpdesk</field>
+            <field name="prefix">T%(y)s%(month)s%(day)s</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Sequences for helpdesk technical department-->
+        <record id="seq_helpdesk_td" model="ir.sequence">
+            <field name="name">Helpdesk TD</field>
+            <field name="code">isp_crm_module.helpdesk_td</field>
+            <field name="prefix">T%(y)s%(month)s%(day)s</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!--Sequences for lead or opportunity-->
+        <record id="seq_crm_lead_opportunity" model="ir.sequence">
+            <field name="name">Lead/Opportunity Sequence</field>
+            <field name="code">crm.lead</field>
+            <field name="prefix">ID%(y)s%(month)s</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!--Sequences for lead or Customer-->
+        <record id="seq_crm_customer" model="ir.sequence">
+            <field name="name">Customer Sequence</field>
+            <field name="code">res.partner</field>
+            <field name="prefix">%(y)s%(month)s</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>
